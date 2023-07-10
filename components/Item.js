@@ -47,7 +47,7 @@ const Item = ({item}) => {
           source={require('../assets/temp_icon.png')}
           style={styles.iconContainer}
         />
-        <View style={{marginLeft: 15}}>
+        <View style={styles.textContainer}>
           <Text style={styles.nameText}> {item.name || '상품명'} </Text>
           <Text style={styles.dateText}>
             유통기한: {item.date || '유통기한'}{' '}
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 10,
   },
   iconContainer: {
     backgroundColor: '#36c1b9',
@@ -77,11 +78,14 @@ const styles = StyleSheet.create({
     width: 46,
     margin: 10,
   },
+  textContainer: {
+    marginLeft: 15,
+    alignItems: 'flex-start',
+  },
   nameText: {
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 5,
-    alignSelf: 'stretch',
   },
   dateText: {
     fontSize: 11,

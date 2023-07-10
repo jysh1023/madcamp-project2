@@ -11,18 +11,13 @@ import Item from '../components/Item';
 
 function Fridge({navigation}) {
   const data = [
-    {name: '하늘보리', date: '2024-05-23'},
+    {name: '하늘보리', date: '2024-05-23', category: 'fruit'},
     {name: '구운계란', date: '2023-07-11'},
   ];
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={data}
-        renderItem={({item}) => <Item item={item} />}
-        style={{marginBottom: 10}}
-      />
-
+      <FlatList data={data} renderItem={({item}) => <Item item={item} />} />
       <TouchableOpacity
         style={styles.buttonStyle}
         onPress={() => navigation.navigate('AddItem')}>

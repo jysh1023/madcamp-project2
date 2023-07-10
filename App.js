@@ -6,6 +6,7 @@ import Fridge from './screens/FridgeScreen';
 import Recipe from './screens/RecipeScreen';
 import MyPage from './screens/MyPageScreen';
 import AddItem from './screens/AddItemScreen.js';
+import AddItemDetails from './screens/AddItemDetails';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -37,6 +38,11 @@ const App = () => {
         <Stack.Screen
           name="AddItem"
           component={AddItem}
+          options={{title: '새로운 식재료 추가'}}
+        />
+        <Stack.Screen
+          name="AddItemDetails"
+          component={AddItemDetails}
           options={{title: '새로운 식재료 추가'}}
         />
       </Stack.Navigator>
