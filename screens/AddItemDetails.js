@@ -1,10 +1,28 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {View, Text, TextInput, StyleSheet} from 'react-native';
+import {View, Text, TextInput, StyleSheet, Button, Modal} from 'react-native';
+import ReactNativeModalDateTimePickerProps from 'react-native-modal-datetime-picker';
 
 const AddItemDetails = ({navigation}) => {
   const [itemName, setItemName] = useState('');
-  const [itemDate, setItemDate] = useState('');
+  const [itemDate, setItemDate] = useState(new Date());
   const [itemCategory, setItemCategory] = useState('');
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = ({date}) => {
+    setItemDate(date);
+    hideDatePicker();
+  };
+
+  const submitItem = data => {};
 
   return (
     <View style={styles.container}>
@@ -15,7 +33,6 @@ const AddItemDetails = ({navigation}) => {
           value={itemName}
           onChangeText={text => setItemName(text)}
           autoComplete="off"
-          m
         />
       </View>
 
@@ -24,8 +41,16 @@ const AddItemDetails = ({navigation}) => {
         <TextInput
           style={styles.itemInput}
           value={itemDate}
-          onChangeText={text => setItemDate(text)}
+          onPress={showDatePicker}
           autoComplete="off"
+          keyboardType="numeric"
+          placeholder="예: 2023-07-10"
+        />
+        <ReactNativeModalDateTimePickerProps
+          isVisible={isDatePickerVisible}
+          mode="date"
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
         />
       </View>
 
@@ -34,9 +59,14 @@ const AddItemDetails = ({navigation}) => {
         <TextInput
           style={styles.itemInput}
           value={itemCategory}
-          onChangeText={text => setItemCategory(text)}
+          ongPress={showDatePicker}
           autoComplete="off"
         />
+      </View>
+
+      <View>
+        <Button title="취소" />
+        <Button title="확인" onPress={submitItem} />
       </View>
     </View>
   );
@@ -52,6 +82,9 @@ const styles = StyleSheet.create({
     height: 48,
     borderBottomColor: '#8e93a1',
     marginBottom: 30,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
   },
 });
 

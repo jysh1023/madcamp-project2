@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -8,16 +8,44 @@ import {
   FlatList,
 } from 'react-native';
 import Item from '../components/Item';
+import axios from 'axios';
 
 function Fridge({navigation}) {
-  const data = [
-    {name: '하늘보리', date: '2024-05-23', category: 'fruit'},
-    {name: '구운계란', date: '2023-07-11'},
-  ];
+  // const [items, setItems] = useState([]);
+  const [item, setItem] = useState({
+    name: '',
+    date: '',
+    quantity: 0,
+    category: '',
+  });
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await axios.get('http://10.0.2.2:8000/api');
+        console.log(response.data);
+        setItem(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+  });
+
+  // useEffect(() => {
+  //   try {
+  //     fetch('http://localhost:8080/api')
+  //       .then(response => response.json)
+  //       .then(data => console.log(data.message));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, []);
 
   return (
     <View style={styles.container}>
-      <FlatList data={data} renderItem={({item}) => <Item item={item} />} />
+      <Text style={{color: '#000'}}>{item}</Text>
+      {/* <FlatList data={data} renderItem={({item}) => <Item item={item} />} /> */}
       <TouchableOpacity
         style={styles.buttonStyle}
         onPress={() => navigation.navigate('AddItem')}>
